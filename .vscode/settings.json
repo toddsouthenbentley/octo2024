@@ -1,0 +1,10 @@
+{
+  "prettier.printWidth": 120,
+  "[javascript][typescript][typescriptreact]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.codeActionsOnSave": {
+      "source.removeUnusedImports": "explicit",
+    },
+  },
+}

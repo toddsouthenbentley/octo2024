@@ -1,0 +1,21 @@
+{
+  "name": "octo2024",
+  "version": "1.0.0",
+  "description": "Bentley OCTO Challenge 2024",
+  "scripts": {
+    "run-ts": "node --no-warnings --experimental-strip-types --experimental-transform-types",
+    "start": "npm run run-ts ./run-day.ts"
+  },
+  "author": "Todd Southen",
+  "license": "MIT",
+  "engines": {
+    "node": ">=22.7.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.1",
+    "prettier": "^3.4.1"
+  },
+  "prettier": {
+    "printWidth": 120
+  }
+}
