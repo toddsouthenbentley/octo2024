@@ -1,6 +1,7 @@
 import * as fs from "fs";
 import * as assert from "assert";
 
+// Part 1
 function countSearchLetters(lines: string | string[], searchLetters: string[]): number {
   let count = 0;
   const searchSet = new Set(searchLetters.map((letter) => letter.toLowerCase()));
@@ -24,6 +25,18 @@ function readFileAsLines(filePath: string): string[] {
   return fs.readFileSync(filePath, "utf-8").split("\n");
 }
 
+assert.strictEqual(countSearchLetters(["strawberry"], ["r"]), 3, "Expected 3 but got a different count");
+
+console.log("Assertion for the number of r's in strawberry passed!");
+
+console.log(
+  `The number of 'r's in the Part 1 file is: ${countSearchLetters(
+    readFileAsLines("day01/OCTO-Coding-Challenge-2024-Week-1-Part-1-input.txt"),
+    ["r"],
+  )}`,
+);
+
+// Part 2
 function countVowels(lines: string | string[]): number {
   const vowels = ["a", "e", "i", "o", "u", "y"];
   return countSearchLetters(lines, vowels);
@@ -43,17 +56,6 @@ function findLineWithMostVowels(lines: string[]): number {
 
   return lineIndexWithMostVowels;
 }
-
-assert.strictEqual(countSearchLetters(["strawberry"], ["r"]), 3, "Expected 3 but got a different count");
-
-console.log("Assertion for the number of r's in strawberry passed!");
-
-console.log(
-  `The number of 'r's in the Part 1 file is: ${countSearchLetters(
-    readFileAsLines("day01/OCTO-Coding-Challenge-2024-Week-1-Part-1-input.txt"),
-    ["r"],
-  )}`,
-);
 
 // Test input
 const testLines = [
