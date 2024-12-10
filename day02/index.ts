@@ -15,13 +15,53 @@ You don't need to use the map, filter or reduce functions specifically for any l
 Example
 In the following example text file (which just contains the integers -3 to 3), the sum of the squares of the non-negative values is 0^2+1^2+2^2+3^2 = 14
 */
-function partOne(filePath: string): number {
-  return fs
-    .readFileSync(filePath, "utf-8")
-    .split("\n")
-    .map(Number)
-    .filter((n) => n > 0)
-    .reduce((sum, n) => (sum += n * n), 0);
+
+class NumberArray {
+  private _data: number[] = [];
+
+  constructor(...values: number[]) {
+    this._data = values;
+  }
+  public get length(): number {
+    return this._data.length;
+  }
+  public set length(value: number) {
+    this._data.length = value;
+  }
+  public get(index: number): number {
+    return this._data[index];
+  }
+  public set(index: number, value: number) {
+    this._data[index] = value;
+  }
+
+  static fromStrings(...values: string[]): NumberArray {
+    return new NumberArray(...values.map(Number));
+  }
+
+  static fromFile(filePath: string): NumberArray {
+    return NumberArray.fromStrings(...fs.readFileSync(filePath, "utf-8").split("\n"));
+  }
+
+  sum(callback = (n: number) => n): number {
+    return this._data.reduce((sum, n) => (sum += callback(n)), 0);
+  }
+
+  filter(callback: (n: number) => boolean): NumberArray {
+    return new NumberArray(...this._data.filter(callback));
+  }
+}
+
+function partOne(filePath: string) {
+  // return fs
+  //   .readFileSync(filePath, "utf-8")
+  //   .split("\n")
+  //   .map(Number)
+  //   .filter((n) => n > 0)
+  //   .reduce((sum, n) => (sum += n * n), 0);
+  return NumberArray.fromFile(filePath)
+    .filter((n) => n >= 0)
+    .sum((n) => n * n);
 }
 
 console.log("Part 1 test:", partOne("day02/OCTO-Coding-Challenge-2024-Week-2-Part-1-test-input.txt"));
@@ -44,12 +84,15 @@ Example
 In the following example text file (which just contains the integers 1 to 10), the sum of the prime numbers is 2+3+5+7 = 17
 */
 function partTwo(filePath: string): number {
-  return fs
-    .readFileSync(filePath, "utf-8")
-    .split("\n")
-    .map(Number)
+  // return fs
+  //   .readFileSync(filePath, "utf-8")
+  //   .split("\n")
+  //   .map(Number)
+  //   .filter((n) => isPrime(n))
+  //   .reduce((sum, n) => (sum += n), 0);
+  return NumberArray.fromFile(filePath)
     .filter((n) => isPrime(n))
-    .reduce((sum, n) => (sum += n), 0);
+    .sum();
 }
 
 function isPrime(num: number): boolean {
